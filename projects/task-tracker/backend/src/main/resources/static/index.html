@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <h1>Task Tracker</h1>
+    <a class="muted small" href="/swagger-ui.html">API docs</a>
+  </header>
+
+  <main class="wrap">
+    <section aria-labelledby="form-title" class="card">
+      <h2 id="form-title">New task</h2>
+      <form id="task-form" novalidate>
+        <label for="title">Title</label>
+        <input id="title" name="title" required maxlength="120" autocomplete="off">
+
+        <div class="row">
+          <div>
+            <label for="dueDate">Due date</label>
+            <input id="dueDate" name="dueDate" type="date">
+          </div>
+          <div>
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM" selected>Medium</option>
+              <option value="HIGH">High</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" maxlength="1000" rows="3"></textarea>
+
+        <p id="form-error" class="error" role="alert" hidden></p>
+        <button type="submit">Add task</button>
+      </form>
+    </section>
+
+    <section aria-labelledby="list-title" class="card">
+      <div class="list-head">
+        <h2 id="list-title">Tasks</h2>
+        <div class="filters" role="group" aria-label="Filter by status">
+          <button type="button" class="chip" data-filter="" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-filter="false" aria-pressed="false">Open</button>
+          <button type="button" class="chip" data-filter="true" aria-pressed="false">Done</button>
+        </div>
+      </div>
+      <p id="status" class="muted" aria-live="polite">Loading…</p>
+      <ul id="tasks" class="list"></ul>
+    </section>
+  </main>
+</body>
+</html>

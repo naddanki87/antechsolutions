@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task Tracker 1.0.0 - Quick Start Guide</title>
+<style>
+:root { --ink:#16202c; --muted:#5b6b7f; --line:#d9e1ea; --accent:#0b7fab; --accent-2:#0f3d5c; --soft:#f3f7fb; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; color: var(--ink); background: #fff; font: 15px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; }
+main { max-width: 900px; margin: 0 auto; padding: 0 24px 64px; }
+.cover { min-height: 92vh; display: flex; flex-direction: column; justify-content: center; padding: 48px 24px; max-width: 900px; margin: 0 auto; }
+.cover .brand { letter-spacing: .18em; font-weight: 700; color: var(--accent); font-size: 13px; }
+.cover h1 { font-size: 44px; line-height: 1.1; margin: 16px 0 8px; color: var(--accent-2); }
+.cover .kind { font-size: 22px; color: var(--muted); margin: 0 0 32px; }
+.cover dl { display: grid; grid-template-columns: 160px 1fr; gap: 6px 16px; margin: 0; font-size: 14px; }
+.cover dt { color: var(--muted); }
+.cover dd { margin: 0; font-weight: 600; }
+.cover .bar { height: 6px; width: 120px; background: linear-gradient(90deg, var(--accent), #38d6ff); border-radius: 3px; }
+nav.toc { page-break-after: always; break-after: page; padding: 24px 0; }
+nav.toc h2 { color: var(--accent-2); }
+nav.toc ol { padding-left: 22px; }
+nav.toc li { margin: 4px 0; }
+nav.toc ol ol { list-style: none; padding-left: 14px; font-size: 14px; }
+nav.toc a { color: var(--ink); text-decoration: none; }
+section.doc { break-before: page; page-break-before: always; padding-top: 8px; }
+section.doc:first-of-type { break-before: auto; page-break-before: auto; }
+.doc-label { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-top: 24px; }
+h2 { font-size: 30px; color: var(--accent-2); margin: 4px 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--accent); }
+h3 { font-size: 21px; color: var(--accent-2); margin: 28px 0 10px; }
+h4 { font-size: 17px; margin: 22px 0 8px; }
+h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+a { color: var(--accent); }
+code { font-family: Consolas, "JetBrains Mono", monospace; font-size: .88em; background: var(--soft); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+pre { background: #0f1b2a; color: #e3edf7; padding: 14px 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; break-inside: avoid; }
+pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; }
+figure.diagram { margin: 16px 0; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); break-inside: avoid; }
+figure.diagram pre { background: none; color: var(--ink); }
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: top; }
+th { background: var(--soft); color: var(--accent-2); }
+tr { break-inside: avoid; page-break-inside: avoid; }
+blockquote { margin: 14px 0; padding: 10px 16px; border-left: 4px solid var(--accent); background: var(--soft); color: #2b3a4c; }
+hr { border: 0; border-top: 1px solid var(--line); margin: 24px 0; }
+footer.end { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+@page { size: A4; margin: 16mm 14mm; }
+@media print { main { padding: 0; } .cover { min-height: 250mm; } a { text-decoration: none; } }
+</style></head>
+<body>
+<header class="cover">
+  <div class="bar"></div>
+  <div class="brand">ANTECH SOLUTIONS</div>
+  <h1>Task Tracker</h1>
+  <p class="kind">Quick Start Guide &middot; version 1.0.0</p>
+  <dl>
+    <dt>Version</dt><dd>1.0.0</dd>
+    <dt>Date</dt><dd>2026-10-30</dd>
+    <dt>Prepared by</dt><dd>Scribe, Antech /ship engineering team</dd>
+    <dt>Prepared for</dt><dd>CEO Nageshwar</dd>
+    <dt>Contents</dt><dd>Quick Start Guide</dd>
+  </dl>
+</header>
+<main>
+<nav class="toc"><h2>Contents</h2><ol><li><a href="#doc-quickstart">Quick Start Guide</a><ol><li><a href="#doc-quickstart-before-you-start">Before you start</a></li><li><a href="#doc-quickstart-step-1-download-the-files">Step 1 - Download the files</a></li><li><a href="#doc-quickstart-step-2-start-the-server">Step 2 - Start the server</a></li><li><a href="#doc-quickstart-step-3-use-the-web-app">Step 3 - Use the web app</a></li><li><a href="#doc-quickstart-step-4-install-the-android-app">Step 4 - Install the Android app</a></li><li><a href="#doc-quickstart-step-5-use-the-app-offline">Step 5 - Use the app offline</a></li><li><a href="#doc-quickstart-step-6-sync-the-phone-with-the-server-optional">Step 6 - Sync the phone with the server (optional)</a></li><li><a href="#doc-quickstart-step-7-explore-the-api-for-developers">Step 7 - Explore the API (for developers)</a></li><li><a href="#doc-quickstart-step-8-run-it-for-a-team-production">Step 8 - Run it for a team (production)</a></li><li><a href="#doc-quickstart-step-9-verify-your-downloads-optional">Step 9 - Verify your downloads (optional)</a></li><li><a href="#doc-quickstart-troubleshooting">Troubleshooting</a></li><li><a href="#doc-quickstart-stop-and-uninstall">Stop and uninstall</a></li></ol></li></ol></nav>
+<section class="doc" id="doc-quickstart"><div class="doc-label">Quick Start Guide</div><h2 id="doc-quickstart-quick-start-guide-task-tracker-v1-0-0">Quick Start Guide - Task Tracker v1.0.0</h2>
+<p>This guide takes you from download to a working Task Tracker on your computer and your Android phone, one step at a time. No programming knowledge is needed.</p>
+<p><strong>What you get</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Part</th><th>What it does</th></tr></thead><tbody><tr><td>Task Tracker server (<code>task-tracker-1.0.0.jar</code>)</td><td>Stores tasks and serves the web app at <code>http://localhost:8080</code></td></tr><tr><td>Web app</td><td>Create, complete, filter and delete tasks in any browser</td></tr><tr><td>Android app (<code>task-tracker-1.0.0-debug.apk</code>)</td><td>The same tasks on your phone. Works without internet, keeps all data in the phone's internal storage, syncs when you tap <strong>Sync</strong></td></tr></tbody></table></div>
+<h3 id="doc-quickstart-before-you-start">Before you start</h3>
+<p>You need:</p>
+<ol><li>A Windows, macOS or Linux computer with <strong>Java 17 or newer</strong>. To check, open a terminal (Windows: press <strong>Win + R</strong>, type <code>cmd</code>, press <strong>Enter</strong>) and run <code>java -version</code>. If it says "not recognized" or shows a version below 17, install the free <strong>Eclipse Temurin 21</strong> from https://adoptium.net and open a new terminal.</li><li>For the mobile app: an <strong>Android phone with Android 8.0 or newer</strong>, and a USB cable or another way to copy a file to the phone.</li><li>The release files from GitHub: https://github.com/naddanki87/antechsolutions/releases/tag/task-tracker-v1.0.0</li></ol>
+<h3 id="doc-quickstart-step-1-download-the-files">Step 1 - Download the files</h3>
+<ol><li>Open the release page above.</li><li>Under <strong>Assets</strong>, download <code>task-tracker-1.0.0.jar</code> (the server) and <code>task-tracker-1.0.0-debug.apk</code> (the Android app). <code>SHA256SUMS.txt</code> lets you check that the downloads are intact (optional, see Step 9).</li><li>Create a folder, for example <code>C:\TaskTracker</code>, and move <code>task-tracker-1.0.0.jar</code> into it.</li></ol>
+<h3 id="doc-quickstart-step-2-start-the-server">Step 2 - Start the server</h3>
+<ol><li>Open a terminal in the folder. On Windows: open the folder in File Explorer, click the address bar, type <code>cmd</code> and press <strong>Enter</strong>.</li><li>Run: ``<code>bash java -jar task-tracker-1.0.0.jar </code><code></code></li><li>Wait until the last lines include <code>Started TaskTrackerApplication</code>. This takes about 10 seconds.</li><li>Leave this window open. Closing it stops Task Tracker. Your tasks are saved in a <code>data</code> folder next to the JAR and are still there the next time you start it.</li></ol>
+<blockquote><p>If you see <code>Port 8080 was already in use</code>, start it on another port instead: <code>java -jar task-tracker-1.0.0.jar --server.port=8090</code> and use <code>8090</code> instead of <code>8080</code> in the next steps.</p></blockquote>
+<h3 id="doc-quickstart-step-3-use-the-web-app">Step 3 - Use the web app</h3>
+<ol><li>Open a browser and go to <strong>http://localhost:8080</strong>.</li><li><strong>Add a task:</strong> type a <strong>Title</strong> (required), optionally choose a <strong>Due date</strong> and a <strong>Priority</strong> (Low, Medium, High) and add <strong>Notes</strong>, then click <strong>Add task</strong>.</li><li><strong>Complete a task:</strong> tick the checkbox next to it. The title is struck through. Untick to reopen it.</li><li><strong>Filter:</strong> use <strong>All</strong>, <strong>Open</strong> or <strong>Done</strong> above the list.</li><li><strong>Delete:</strong> click <strong>Delete</strong> next to a task.</li></ol>
+<p>If the page shows an error such as "Title is required", correct the field and click <strong>Add task</strong> again.</p>
+<h3 id="doc-quickstart-step-4-install-the-android-app">Step 4 - Install the Android app</h3>
+<ol><li>Copy <code>task-tracker-1.0.0-debug.apk</code> to your phone (USB cable, Google Drive, email to yourself, ...).</li><li>On the phone, open the file (for example in <strong>Files</strong> &gt; <strong>Downloads</strong>).</li><li>Android asks to allow installing apps from this source: tap <strong>Settings</strong>, turn on <strong>Allow from this source</strong>, go back and tap <strong>Install</strong>.</li><li>If Google Play Protect warns about an unknown app, tap <strong>More details</strong> &gt; <strong>Install anyway</strong>. This appears because this test build is not signed for the Play Store.</li><li>Open <strong>Task Tracker</strong> from the app drawer.</li></ol>
+<p>Developers can install from a computer instead: <code>adb install task-tracker-1.0.0-debug.apk</code>.</p>
+<h3 id="doc-quickstart-step-5-use-the-app-offline">Step 5 - Use the app offline</h3>
+<p>The app works without any server or internet connection:</p>
+<ol><li>Tap <strong>Add task</strong>, fill in the title, notes, due date (tap the date button) and priority, then tap <strong>Save</strong>.</li><li>Tap a task to edit it, tick <strong>Done</strong>, or tap <strong>Delete</strong>.</li><li>Tick the checkbox in the list to complete a task quickly.</li><li>Use <strong>All / Open / Done</strong> at the top to filter.</li></ol>
+<p>Tasks you have not synced yet show <strong>"not synced"</strong> under the title. They are already saved on the phone.</p>
+<p><strong>Where your data is stored:</strong> in the app's private internal storage (<code>/data/data/com.antech.tasktracker/databases/task-tracker.db</code>). Other apps cannot read it, it is not copied to cloud backups, and it is removed only when you uninstall the app.</p>
+<h3 id="doc-quickstart-step-6-sync-the-phone-with-the-server-optional">Step 6 - Sync the phone with the server (optional)</h3>
+<p>Sync shares tasks between the phone and the web app.</p>
+<ol><li>Find your computer's address on your Wi-Fi network. On Windows run <code>ipconfig</code> and look for <strong>IPv4 Address</strong>, for example <code>192.168.1.20</code>. The phone must be on the same Wi-Fi.</li><li>The app only sends tasks over secure <code>https://</code> connections. The single exception is the Android emulator, which reaches your computer at <code>http://10.0.2.2:8080</code> (already preset in this test build). For a real phone, publish the server behind HTTPS (see Step 8), or use a tunnelling tool that gives you an <code>https://</code> address for <code>http://localhost:8080</code>. A plain <code>http://192.168...</code> address is blocked by Android and shows "Offline".</li><li>In the app, open the menu (<strong>⋮</strong>, top right) &gt; <strong>Server URL</strong>, enter the <code>https://</code> address and tap <strong>OK</strong>.</li><li>Tap <strong>Sync</strong>. You see "Synced: N sent, M received". Tasks created in the web app now appear on the phone, and phone tasks appear in the web app after you refresh the page.</li><li>Without a connection you see "Offline - changes are saved on this device". Nothing is lost; tap <strong>Sync</strong> again later.</li></ol>
+<p>If the same task was changed in both places, the server's version is kept and the phone updates to match.</p>
+<h3 id="doc-quickstart-step-7-explore-the-api-for-developers">Step 7 - Explore the API (for developers)</h3>
+<ul><li>Interactive API documentation: <strong>http://localhost:8080/swagger-ui.html</strong></li><li>Health check: <strong>http://localhost:8080/actuator/health</strong> (shows <code>&quot;status&quot;:&quot;UP&quot;</code>)</li><li>Example: ``<code>bash curl -X POST http://localhost:8080/api/v1/tasks -H &quot;Content-Type: application/json&quot; -d &#x27;{&quot;title&quot;:&quot;First task&quot;,&quot;priority&quot;:&quot;HIGH&quot;}&#x27; </code><code></code></li></ul>
+<p>See the API Reference section for every endpoint.</p>
+<h3 id="doc-quickstart-step-8-run-it-for-a-team-production">Step 8 - Run it for a team (production)</h3>
+<ol><li>Create a PostgreSQL database and user.</li><li>Start the server with production settings (one line): ``<code>bash SPRING_PROFILES_ACTIVE=prod DB_URL=jdbc:postgresql://db-host:5432/tasks DB_USERNAME=tasks DB_PASSWORD=your-password APP_CORS_ALLOWED_ORIGINS=https://tasks.example.com JPA_DDL_AUTO=update java -jar task-tracker-1.0.0.jar </code>`<code> On Windows </code>cmd<code>, set each variable first with </code>set NAME=value<code>, then run </code>java -jar task-tracker-1.0.0.jar`.</li><li>Put it behind an HTTPS reverse proxy (for example Nginx, Caddy or a cloud load balancer) so phones can sync.</li><li>After the first start, set <code>JPA_DDL_AUTO=validate</code>.</li><li>Note: v1.0.0 has <strong>no login</strong>. Run it only on a trusted network or behind a proxy that requires sign-in until v1.1 adds authentication (see the Security Report, SEC-4).</li></ol>
+<h3 id="doc-quickstart-step-9-verify-your-downloads-optional">Step 9 - Verify your downloads (optional)</h3>
+<p>On Windows PowerShell:</p>
+<pre><code class="lang-bash">Get-FileHash task-tracker-1.0.0.jar -Algorithm SHA256</code></pre>
+<p>On macOS/Linux: <code>shasum -a 256 task-tracker-1.0.0.jar</code>. The value must match the line in <code>SHA256SUMS.txt</code>.</p>
+<h3 id="doc-quickstart-troubleshooting">Troubleshooting</h3>
+<div class="table-wrap"><table><thead><tr><th>Problem</th><th>Fix</th></tr></thead><tbody><tr><td><code>&#x27;java&#x27; is not recognized</code></td><td>Install Java 21 (Before you start, item 1) and open a new terminal</td></tr><tr><td><code>Unsupported class file major version</code> / <code>UnsupportedClassVersionError</code></td><td>Java is older than 17. Install Java 21</td></tr><tr><td><code>Port 8080 was already in use</code></td><td>Add <code>--server.port=8090</code> and use port 8090</td></tr><tr><td>Web page does not load</td><td>Make sure the terminal from Step 2 is still open and shows <code>Started TaskTrackerApplication</code></td></tr><tr><td>Android: "App not installed"</td><td>Uninstall an older Task Tracker first, then install again</td></tr><tr><td>Android: "Use an https:// address"</td><td>Release builds only accept <code>https://</code> server addresses (Step 6)</td></tr><tr><td>Android: "Offline - changes are saved on this device"</td><td>Check Wi-Fi and the Server URL; the server must be running, reachable and use <code>https://</code> (Step 6)</td></tr><tr><td>Android: "Sync failed: ..."</td><td>The server rejected a change; open the task, check the title (max 120 characters), save and sync again</td></tr></tbody></table></div>
+<h3 id="doc-quickstart-stop-and-uninstall">Stop and uninstall</h3>
+<ul><li><strong>Stop the server:</strong> press <strong>Ctrl + C</strong> in its terminal, or close the window.</li><li><strong>Remove server data:</strong> delete the <code>data</code> folder next to the JAR.</li><li><strong>Remove the app:</strong> long-press <strong>Task Tracker</strong> &gt; <strong>Uninstall</strong>. This also deletes all tasks stored on the phone.</li></ul></section>
+<footer class="end">Task Tracker 1.0.0 &middot; Quick Start Guide &middot; generated 2026-10-30 by the Antech /ship skill (Scribe).</footer>
+</main></body></html>

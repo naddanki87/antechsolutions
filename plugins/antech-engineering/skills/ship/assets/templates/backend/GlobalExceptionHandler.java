@@ -9,12 +9,16 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+// Spring Data 4 (Boot 4). On Boot 3 / Spring Data 3 use org.springframework.data.mapping.PropertyReferenceException.
+import org.springframework.data.core.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.ErrorResponse;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
@@ -50,7 +54,8 @@ public class GlobalExceptionHandler {
                 "One or more parameters are invalid", req);
     }
 
-    @ExceptionHandler({ HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class })
+    @ExceptionHandler({ HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class,
+            MissingServletRequestParameterException.class, PropertyReferenceException.class })
     ProblemDetail handleMalformed(Exception ex, HttpServletRequest req) {
         return problem(HttpStatus.BAD_REQUEST, "malformed-request", "Malformed request",
                 "The request body or parameters could not be read", req);
@@ -78,6 +83,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     ProblemDetail handleUnexpected(Exception ex, HttpServletRequest req) {
+        if (ex instanceof ErrorResponse er && er.getStatusCode().is4xxClientError()) {
+            // Other standard Spring MVC errors (unsupported media type, not acceptable, ...): keep their 4xx status.
+            HttpStatus status = HttpStatus.valueOf(er.getStatusCode().value());
+            return problem(status, "request-error", status.getReasonPhrase(), "The request could not be processed", req);
+        }
         String correlationId = UUID.randomUUID().toString();
         log.error("Unhandled error [{}] on {} {}", correlationId, req.getMethod(), req.getRequestURI(), ex);
         ProblemDetail pd = problem(HttpStatus.INTERNAL_SERVER_ERROR, "internal", "Internal error",

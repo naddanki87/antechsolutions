@@ -14,8 +14,20 @@ engineering team that turns one business requirement into a shipped product:
 | 📝 Scribe | README, API reference, decisions log |
 | 🚀 Deployer | Executable JAR + APK, Conventional Commits, push, GitHub Release, CI |
 
+**Antech Mission Control** - while the team works, open http://localhost:7070 to watch every agent live:
+status and current task on each node, message pulses between agents, the joint dialogue log, phase gates,
+tests, security findings, artifacts, commits and GitHub Actions runs
+(see [`references/mission-control.md`](plugins/antech-engineering/skills/ship/references/mission-control.md)).
+Replay a finished run, e.g. the sample:
+```bash
+java plugins/antech-engineering/skills/ship/assets/mission-control/MissionControl.java --project projects/task-tracker
+```
+
 Each run delivers: backend + web + Android source, tests (real results), security audit,
 docs, `dist/<app>-<version>.jar`, `dist/<app>-<version>.apk`, a GitHub Actions workflow and a GitHub Release.
+Scribe also produces **downloadable documentation** in `dist/docs/` and on the release: a step-by-step
+**Quick Start Guide**, a formal **Security Report** and the **complete manual**, each as PDF + HTML, plus a zip
+(`scripts/build_docs.py`). See the sample: [Task Tracker docs](projects/task-tracker/dist/docs/).
 
 ## Install
 
@@ -66,6 +78,10 @@ plugins/antech-engineering/
     references/                            contract, security, testing, Android storage, delivery
     assets/templates/                      backend, frontend, android, CI, .gitignore
     assets/report-template.md              executive handover table
+    assets/mission-control/                live CEO dashboard (Java server + vanilla JS UI)
+    assets/templates/docs/                 Quick Start + Security Report structures
+    scripts/build_docs.py                  Markdown -> HTML + PDF + zip documentation builder
+projects/task-tracker/                     sample product shipped by the team (JAR, APK via CI, docs, agent log)
 scripts/package_skills.py                  validate + zip skills into dist/
 dist/ship.zip                              uploadable skill package
 ```

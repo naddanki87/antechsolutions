@@ -1,0 +1,120 @@
+openapi: 3.1.0
+info:
+  title: Task Tracker API
+  version: 1.0.0
+  description: Antech Solutions task tracker. Errors use RFC 7807 application/problem+json.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/v1/tasks:
+    get:
+      summary: List tasks (excludes deleted)
+      parameters:
+        - { name: done, in: query, required: false, schema: { type: boolean } }
+        - { name: page, in: query, schema: { type: integer, minimum: 0, default: 0 } }
+        - { name: size, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 20 } }
+        - { name: sort, in: query, schema: { type: string, default: "createdAt,desc" } }
+      responses:
+        '200': { description: Page of tasks, content: { application/json: { schema: { $ref: '#/components/schemas/TaskPage' } } } }
+        '400': { $ref: '#/components/responses/Problem' }
+    post:
+      summary: Create a task
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: '#/components/schemas/CreateTaskRequest' } } }
+      responses:
+        '201':
+          description: Created
+          headers: { Location: { schema: { type: string } } }
+          content: { application/json: { schema: { $ref: '#/components/schemas/TaskResponse' } } }
+        '400': { $ref: '#/components/responses/Problem' }
+  /api/v1/tasks/changes:
+    get:
+      summary: Tasks changed after an instant (includes deleted) - used by Android sync
+      parameters:
+        - { name: since, in: query, required: true, schema: { type: string, format: date-time } }
+      responses:
+        '200': { description: Changes, content: { application/json: { schema: { $ref: '#/components/schemas/TaskChanges' } } } }
+        '400': { $ref: '#/components/responses/Problem' }
+  /api/v1/tasks/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      summary: Get a task
+      responses:
+        '200': { description: Task, content: { application/json: { schema: { $ref: '#/components/schemas/TaskResponse' } } } }
+        '404': { $ref: '#/components/responses/Problem' }
+    put:
+      summary: Update a task, or create it with this id (idempotent upsert)
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: '#/components/schemas/UpsertTaskRequest' } } }
+      responses:
+        '200': { description: Updated, content: { application/json: { schema: { $ref: '#/components/schemas/TaskResponse' } } } }
+        '201': { description: Created, content: { application/json: { schema: { $ref: '#/components/schemas/TaskResponse' } } } }
+        '400': { $ref: '#/components/responses/Problem' }
+        '409': { $ref: '#/components/responses/Problem' }
+    delete:
+      summary: Delete a task (soft delete)
+      responses:
+        '204': { description: Deleted }
+        '404': { $ref: '#/components/responses/Problem' }
+components:
+  responses:
+    Problem:
+      description: Error
+      content: { application/problem+json: { schema: { $ref: '#/components/schemas/Problem' } } }
+  schemas:
+    Priority: { type: string, enum: [LOW, MEDIUM, HIGH] }
+    CreateTaskRequest:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 120 }
+        notes: { type: [string, 'null'], maxLength: 1000 }
+        dueDate: { type: [string, 'null'], format: date }
+        priority: { $ref: '#/components/schemas/Priority' }
+    UpsertTaskRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateTaskRequest'
+        - type: object
+          properties:
+            done: { type: boolean, default: false }
+            version: { type: [integer, 'null'], description: Required when updating; omitted when creating }
+    TaskResponse:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        notes: { type: [string, 'null'] }
+        dueDate: { type: [string, 'null'], format: date }
+        priority: { $ref: '#/components/schemas/Priority' }
+        done: { type: boolean }
+        deleted: { type: boolean }
+        version: { type: integer }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    TaskPage:
+      type: object
+      properties:
+        content: { type: array, items: { $ref: '#/components/schemas/TaskResponse' } }
+        page: { type: integer }
+        size: { type: integer }
+        totalElements: { type: integer }
+        totalPages: { type: integer }
+    TaskChanges:
+      type: object
+      properties:
+        content: { type: array, items: { $ref: '#/components/schemas/TaskResponse' } }
+    Problem:
+      type: object
+      properties:
+        type: { type: string }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string }
+        errors:
+          type: array
+          items: { type: object, properties: { field: { type: string }, message: { type: string } } }
+        timestamp: { type: string, format: date-time }

@@ -1,0 +1,30 @@
+# Build output (dist/ is intentionally NOT ignored: it carries the shipped JAR and APK)
+target/
+build/
+android/out/
+.gradle/
+*.class
+
+# Local runtime data (anchored: Java packages named "data" must stay tracked)
+backend/data/
+*.db
+*.mv.db
+*.trace.db
+*.log
+
+# Secrets - never commit
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pem
+local.properties
+application-local.yml
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
