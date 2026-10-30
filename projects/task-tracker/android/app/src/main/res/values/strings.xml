@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Task Tracker</string>
+    <string name="all">All</string>
+    <string name="open">Open</string>
+    <string name="done">Done</string>
+    <string name="add">Add task</string>
+    <string name="sync">Sync</string>
+    <string name="syncing">Syncing…</string>
+    <string name="empty">No tasks here yet. Tasks are stored on this device and work offline.</string>
+    <string name="new_task">New task</string>
+    <string name="edit_task">Edit task</string>
+    <string name="title">Title</string>
+    <string name="notes">Notes</string>
+    <string name="due_date">Due date</string>
+    <string name="no_due_date">No due date</string>
+    <string name="clear">Clear</string>
+    <string name="priority">Priority</string>
+    <string name="mark_done">Done</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="server_url">Server URL</string>
+    <string name="server_url_hint">Task Tracker API address used for sync</string>
+    <string name="server_url_invalid">Use an https:// address</string>
+    <string-array name="priority_labels">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+</resources>
