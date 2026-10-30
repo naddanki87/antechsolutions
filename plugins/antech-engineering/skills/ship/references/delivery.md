@@ -45,6 +45,7 @@ base64 secret `ANTECH_KEYSTORE_BASE64`.
 
 ## Artifact policy
 - Artifacts are **committed in `dist/`** (so the repo itself carries the shipment) **and attached to a GitHub Release**.
+- Documentation from Scribe (`dist/docs/*.pdf`, `*.html`, `*-docs.zip`) is committed and attached to the same release.
 - Size guard: GitHub rejects files > 100 MB. If a file is > 95 MB, skip committing it, attach it to the release
   only, and say so in the report.
 - Record SHA-256 of each artifact in `dist/SHA256SUMS.txt` (`sha256sum dist/*.jar dist/*.apk`).
@@ -76,12 +77,13 @@ If on a feature branch: `gh pr create --fill --base main` unless the user asked 
 
 ## Release
 ```bash
-gh release create <tag> dist/<slug>-<version>.jar dist/<slug>-<version>*.apk dist/SHA256SUMS.txt \
+gh release create <tag> dist/<slug>-<version>.jar dist/<slug>-<version>*.apk dist/SHA256SUMS.txt dist/docs/*.pdf dist/docs/*-docs.zip \
   --title "<Product name> v<version>" --notes-file docs/RELEASE-NOTES.md --target <branch>
 ```
 Tag: `<slug>-v<version>` in the shared antechsolutions repo, `v<version>` in a dedicated repo.
 If the APK was not built locally, push the tag only and let the CI workflow attach the APK; report the
-workflow run URL (`gh run list --limit 1`).
+workflow run URL (`gh run list --limit 1`). Then add the documentation to the release CI created:
+`gh release upload <tag> dist/docs/*.pdf dist/docs/*-docs.zip --clobber`.
 
 ## CI
 Copy `assets/templates/github/ci.yml` to `.github/workflows/<slug>-ci.yml`, replace `__SLUG__` and

@@ -13,7 +13,8 @@
 | Executable JAR | `dist/<slug>-<version>.jar` (<size> MB) - smoke-started: yes/no |
 | Android APK | `dist/<slug>-<version>.apk` (<size> MB, release-signed / debug-signed) or "built by CI: <run URL>" |
 | Mobile storage | Internal storage only: SQLite `<slug>.db` + private SharedPreferences; no storage permissions |
-| Docs | README.md, docs/API.md, docs/openapi.yaml, docs/DECISIONS.md |
+| Docs | README.md, docs/QUICKSTART.md, docs/API.md, docs/SECURITY-REPORT.md, docs/openapi.yaml, docs/DECISIONS.md |
+| Downloadable docs | `dist/docs/`: documentation, quick start, security report (`.pdf` + `.html`), `<slug>-<version>-docs.zip` - attached to the release |
 
 ### Files built
 | Owner | Files |

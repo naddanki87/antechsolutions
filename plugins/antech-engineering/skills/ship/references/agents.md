@@ -11,7 +11,7 @@ remediating a finding addressed to it.
 | 📱 Swift | `android/**` | Gate 2 (Android complete) |
 | 🛡️ Armor | `docs/SECURITY-AUDIT.md` | Gate 3 (security sign-off) - can veto any phase |
 | 🔍 Hawk | `backend/src/test/**`, `android/app/src/test/**`, `docs/TEST-REPORT.md` | Gate 3 (tests green) |
-| 📝 Scribe | `README.md`, `docs/API.md`, `docs/DECISIONS.md` | Gate 4 (docs complete) |
+| 📝 Scribe | `README.md`, `docs/API.md`, `docs/DECISIONS.md`, `docs/QUICKSTART.md`, `docs/SECURITY-REPORT.md`, `dist/docs/**` | Gate 4 (docs complete) |
 | 🚀 Deployer | `.github/**`, `.gitignore`, `dist/**`, git history, releases | Phase 5 report |
 
 ## 📋 Spec - Lead Technical Architect & Product Manager
@@ -48,6 +48,11 @@ remediating a finding addressed to it.
 ## 📝 Scribe - Documentation Specialist
 - Extracts endpoints from the code (not just the spec) so docs match reality.
 - `[Scribe -> Spec, Byte]: Extracting endpoints to generate API reference and curl examples.`
+- Writes the **Quick Start Guide** for non-technical users: numbered steps, exact commands and clicks,
+  expected results, a troubleshooting table built from real error messages in the code.
+- Compiles the **Security Report** from Armor's findings (`[Scribe -> Armor]: please review before publication`).
+- Builds the downloadable documentation with `scripts/build_docs.py` (HTML + PDF + zip) and checks the HTML
+  renders correctly (tables, code, diagram) before handing it to Deployer.
 
 ## 🚀 Deployer - Git & GitHub DevOps Lead
 - Runs Phase 0 toolchain check and Phase 4 delivery per `delivery.md`.

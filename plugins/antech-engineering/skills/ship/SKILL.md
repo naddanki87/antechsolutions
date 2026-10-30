@@ -24,7 +24,7 @@ was not run, a build that failed or an APK that could not be built is reported a
 | Web | Vanilla HTML5 + CSS3 + JavaScript (`fetch`) in `backend/src/main/resources/static/`. No frameworks, bundlers or CDNs for app logic |
 | Mobile | **Native Android, Java**, no third-party libraries beyond AndroidX core. **All app data lives in device internal storage** (SQLite via `SQLiteOpenHelper` in the app-private databases dir, files via `Context.getFilesDir()`). Works fully offline; optional sync to the REST API. See `references/android-internal-storage.md` |
 | Tests | JUnit 5, `@WebMvcTest`, `@DataJpaTest`, `@SpringBootTest`; Android local unit tests |
-| Artifacts | `dist/<slug>-<version>.jar` (executable fat JAR) and `dist/<slug>-<version>.apk` |
+| Artifacts | `dist/<slug>-<version>.jar` (executable fat JAR), `dist/<slug>-<version>.apk`, and `dist/docs/` (documentation, quick start, security report as HTML + PDF + zip) |
 | VCS | Git, Conventional Commits, GitHub (`gh` CLI), GitHub Release with JAR + APK attached, GitHub Actions CI |
 
 ## Defaults
@@ -88,13 +88,23 @@ fatal: the APK is then built by the GitHub Actions workflow and attached to the 
 ### Phase 4 - Documentation & Delivery
 1. **Scribe** writes `README.md` (overview, architecture diagram in Mermaid, setup, run, build, env vars,
    install the APK), `docs/API.md` (every endpoint with a `curl` example and responses), and
-   `docs/DECISIONS.md` (architecture decisions and agent handoffs).
+   `docs/DECISIONS.md` (architecture decisions and agent handoffs). Then, as a mandatory documentation step:
+   - `docs/QUICKSTART.md` - step-by-step guide for a non-technical user (download, start the JAR, use the web
+     app, install the APK, offline use, sync, production run, verify downloads, troubleshooting, uninstall),
+     from `assets/templates/docs/QUICKSTART.md`.
+   - `docs/SECURITY-REPORT.md` - formal security report compiled from Armor's audit (executive summary,
+     scope, method, every finding with evidence and fix, accepted risks, controls, recommendations, sign-off),
+     from `assets/templates/docs/SECURITY-REPORT.md`. Armor reviews it before publication.
+   - Build the downloadable files: `python scripts/build_docs.py --project <product-root> --name "<Product>"
+     --version <version> --repo-url <blob URL of product-root>` -> `dist/docs/<slug>-<version>-documentation`,
+     `-quickstart`, `-security-report` (`.html` + `.pdf`) and `<slug>-<version>-docs.zip`. Open the HTML to
+     check the rendering, then hand the files to Deployer for the release.
 2. **Deployer** builds artifacts and ships, following `references/delivery.md` exactly:
    - executable JAR -> `dist/`, verify with `java -jar ... --server.port=0` smoke start (or `-Dspring-boot.run` check).
    - APK -> `dist/` (local build) or via CI.
    - adds `.github/workflows/` from `assets/templates/github/`.
    - `git add` (never `.env`, keystores, `target/`, `build/`, `local.properties`), atomic Conventional Commits,
-     `git push origin <branch>`, `gh release create` with JAR + APK.
+     `git push origin <branch>`, `gh release create` with JAR + APK + Scribe's documentation from `dist/docs/`.
    - Before the first push of a run, confirm repo + branch with the user unless the request already named them.
 
 ### Phase 5 - Executive Handover
@@ -120,6 +130,8 @@ Commit `.ship/events.jsonl` with the product so the run can be replayed in Missi
 | `assets/templates/github/ci.yml` | CI + release workflow (tests, JAR, APK, release upload) |
 | `assets/templates/gitignore.txt` | `.gitignore` for each product |
 | `assets/report-template.md` | Phase 5 handover table |
+| `assets/templates/docs/` | `QUICKSTART.md` and `SECURITY-REPORT.md` structures for Scribe |
+| `scripts/build_docs.py` | Scribe's Markdown -> HTML + PDF + zip documentation builder (stdlib Python; PDF via headless Edge/Chrome) |
 
 Templates use placeholders: `__SLUG__`, `__PACKAGE__` (Java package), `__APP_ID__` (Android applicationId,
 also its Java package), `__PRODUCT_NAME__`, `__DIR__`, `__TAG_GLOB__`. Replace every one; grep for `__` before
