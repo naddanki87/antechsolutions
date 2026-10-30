@@ -1,0 +1,1 @@
+aff87c956c68237284b972ba435ae4425b3d4ee751b4b91477c71ce85c0fc0f1 *dist/task-tracker-1.0.0.jar
