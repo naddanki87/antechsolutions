@@ -1,6 +1,6 @@
 {
   "name": "antech-engineering",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Antech Solutions autonomous 8-agent engineering team: /ship a requirement into a Spring Boot API, vanilla web UI, offline-first Android app (internal storage), tests, security audit, docs, executable JAR + APK, and a GitHub release.",
   "author": {
     "name": "Nageshwar Addanki",

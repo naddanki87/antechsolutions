@@ -25,6 +25,9 @@ java plugins/antech-engineering/skills/ship/assets/mission-control/MissionContro
 
 Each run delivers: backend + web + Android source, tests (real results), security audit,
 docs, `dist/<app>-<version>.jar`, `dist/<app>-<version>.apk`, a GitHub Actions workflow and a GitHub Release.
+Scribe also produces **downloadable documentation** in `dist/docs/` and on the release: a step-by-step
+**Quick Start Guide**, a formal **Security Report** and the **complete manual**, each as PDF + HTML, plus a zip
+(`scripts/build_docs.py`). See the sample: [Task Tracker docs](projects/task-tracker/dist/docs/).
 
 ## Install
 
@@ -76,6 +79,8 @@ plugins/antech-engineering/
     assets/templates/                      backend, frontend, android, CI, .gitignore
     assets/report-template.md              executive handover table
     assets/mission-control/                live CEO dashboard (Java server + vanilla JS UI)
+    assets/templates/docs/                 Quick Start + Security Report structures
+    scripts/build_docs.py                  Markdown -> HTML + PDF + zip documentation builder
 projects/task-tracker/                     sample product shipped by the team (JAR, APK via CI, docs, agent log)
 scripts/package_skills.py                  validate + zip skills into dist/
 dist/ship.zip                              uploadable skill package
