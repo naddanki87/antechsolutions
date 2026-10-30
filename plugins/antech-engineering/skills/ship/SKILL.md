@@ -48,9 +48,15 @@ Examples and the full role cards are in `references/agents.md`. Each phase ends 
 
 `GATE <phase>: PASS` or `GATE <phase>: FAIL - <reason>` (on FAIL, loop back to the owning agent; max 3 loops, then stop and report to the CEO).
 
+Mirror each of these lines into Mission Control as an event (`kind` `message` / `gate`), see `references/mission-control.md`.
+
 ## Execution sequence
 
 Before Phase 1, run **Phase 0 - Toolchain check** (Deployer): see `references/delivery.md` section "Toolchain".
+Then start **Antech Mission Control** in the background and give the CEO the URL (`references/mission-control.md`):
+`java assets/mission-control/MissionControl.java --project <product-root> --port 7070` -> http://localhost:7070.
+From then on, every agent message, status change, finding, test result, gate and artifact is also logged as an
+event (same text) so the CEO can watch each agent working live.
 Record which of JDK, Maven wrapper, Android SDK, Gradle, git, gh are available. Missing Android SDK is not
 fatal: the APK is then built by the GitHub Actions workflow and attached to the release by CI.
 
@@ -94,6 +100,7 @@ fatal: the APK is then built by the GitHub Actions workflow and attached to the 
 ### Phase 5 - Executive Handover
 `[Deployer -> CEO Nageshwar]` followed by the table in `assets/report-template.md`: files built, test results
 (real counts), Armor sign-off, artifact names and sizes, commit SHA(s), branch, release URL, and anything not done.
+Commit `.ship/events.jsonl` with the product so the run can be replayed in Mission Control.
 
 ## Bundled files
 
@@ -105,6 +112,8 @@ fatal: the APK is then built by the GitHub Actions workflow and attached to the 
 | `references/testing.md` | Hawk's minimum suite and edge cases |
 | `references/android-internal-storage.md` | Swift's offline-first, internal-storage design and layout |
 | `references/delivery.md` | Toolchain check, JAR/APK build, commits, push, release |
+| `references/mission-control.md` | Live CEO dashboard: how to start it, event schema, how agents log |
+| `assets/mission-control/` | `MissionControl.java` server + `web/` dashboard (vanilla JS) |
 | `assets/templates/backend/` | `SCAFFOLD.md`, `SecurityConfig.java`, `GlobalExceptionHandler.java`, `Exceptions.java.txt`, `application.yml` |
 | `assets/templates/frontend/` | `index.html`, `styles.css`, `app.js` |
 | `assets/templates/android/` | `LocalStore.java` -> `data/`, `ApiClient.java` + `SyncWorker.java` -> `sync/`, `AndroidManifest.xml`, `app-build.gradle` -> `app/build.gradle`, `root-gradle-files.txt`, `res-xml/` -> `src/main/res/xml/`, `res-xml-debug/` -> `src/debug/res/xml/` |

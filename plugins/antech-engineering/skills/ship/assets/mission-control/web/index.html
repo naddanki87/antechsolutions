@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antech Mission Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <div class="brand-name">ANTECH MISSION CONTROL</div>
+        <div class="brand-sub">Autonomous Engineering Organization · <span id="project">-</span></div>
+      </div>
+    </div>
+    <ol class="phases" id="phases" aria-label="Pipeline phases"></ol>
+    <div class="conn"><span class="dot" id="conn-dot"></span><span id="conn-text">Connecting…</span><span class="clock" id="clock"></span></div>
+  </header>
+
+  <main class="grid">
+    <section class="panel log-panel" aria-labelledby="log-title">
+      <div class="panel-head">
+        <h2 id="log-title">Live Joint Dialogue &amp; Logs</h2>
+        <button type="button" class="ghost" id="log-filter-clear" hidden>Show all</button>
+      </div>
+      <p class="filter-note" id="log-filter-note" hidden></p>
+      <ol class="log" id="log" aria-live="polite"></ol>
+    </section>
+
+    <section class="stage" aria-label="Agent network">
+      <svg id="network" viewBox="0 30 1000 820" role="img" aria-label="Agents connected to the CEO">
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="ceo-fill" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" stop-color="#14324a"/>
+            <stop offset="100%" stop-color="#070d16"/>
+          </radialGradient>
+        </defs>
+        <g id="orbits"></g>
+        <g id="edges"></g>
+        <g id="pulses"></g>
+        <g id="nodes"></g>
+        <g id="ceo"></g>
+      </svg>
+      <div class="agent-card" id="agent-card" hidden>
+        <button type="button" class="ghost close" id="agent-card-close" aria-label="Close agent details">×</button>
+        <div class="agent-card-head"><span class="swatch" id="ac-swatch"></span><h3 id="ac-name"></h3><span class="chip" id="ac-status"></span></div>
+        <p class="muted" id="ac-role"></p>
+        <p id="ac-task"></p>
+        <ol class="mini-log" id="ac-log"></ol>
+      </div>
+    </section>
+
+    <section class="panel gh-panel" aria-labelledby="gh-title">
+      <div class="panel-head"><h2 id="gh-title">GitHub Activity &amp; Branch Pipeline</h2></div>
+      <div class="gh-meta">
+        <div><span class="muted">Branch</span> <span class="mono" id="gh-branch">-</span></div>
+        <div><span class="muted">Uncommitted</span> <span class="mono" id="gh-dirty">-</span></div>
+        <a class="mono small" id="gh-remote" href="#" target="_blank" rel="noopener noreferrer"></a>
+      </div>
+      <h3 class="sub">CI runs</h3>
+      <ol class="runs" id="gh-runs"><li class="muted small">Waiting for data…</li></ol>
+      <h3 class="sub">Commits</h3>
+      <ol class="commits" id="gh-commits"></ol>
+    </section>
+  </main>
+
+  <section class="metrics" aria-label="Metrics">
+    <div class="metric"><h3>System CPU <span class="mono" id="m-cpu">-</span></h3><canvas id="c-cpu" height="70"></canvas></div>
+    <div class="metric"><h3>Memory <span class="mono" id="m-mem">-</span></h3><canvas id="c-mem" height="70"></canvas></div>
+    <div class="metric"><h3>Agent events / min <span class="mono" id="m-rate">-</span></h3><canvas id="c-rate" height="70"></canvas></div>
+    <div class="metric"><h3>Tests (Hawk)</h3>
+      <div class="stats"><div><b id="t-run">-</b><span>run</span></div><div><b id="t-fail" class="bad">-</b><span>failed</span></div><div><b id="t-skip">-</b><span>skipped</span></div></div>
+    </div>
+    <div class="metric"><h3>Security (Armor)</h3>
+      <div class="stats"><div><b id="s-open" class="bad">-</b><span>open</span></div><div><b id="s-fixed" class="good">-</b><span>fixed</span></div><div><b id="s-sign">-</b><span>sign-off</span></div></div>
+    </div>
+    <div class="metric"><h3>Artifacts (Deployer)</h3><ul class="artifacts" id="artifacts"><li class="muted small">None yet</li></ul></div>
+  </section>
+</body>
+</html>
