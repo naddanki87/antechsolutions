@@ -1,0 +1,19 @@
+// Two files in __PACKAGE__.service. Throw these from services; GlobalExceptionHandler maps them.
+
+// ---- NotFoundException.java ----
+package __PACKAGE__.service;
+
+public class NotFoundException extends RuntimeException {
+    public NotFoundException(String resource, Object id) {
+        super(resource + " " + id + " not found");
+    }
+}
+
+// ---- ConflictException.java ----
+package __PACKAGE__.service;
+
+public class ConflictException extends RuntimeException {
+    public ConflictException(String message) {
+        super(message);
+    }
+}

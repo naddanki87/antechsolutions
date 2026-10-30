@@ -1,0 +1,38 @@
+// ===== android/settings.gradle =====
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = '__SLUG__'
+include ':app'
+
+// ===== android/build.gradle =====
+// Keep AGP and Gradle compatible: AGP 8.7.x <-> Gradle 8.9+ (wrapper 8.10.2), JDK 17+.
+plugins {
+    id 'com.android.application' version '8.7.3' apply false
+}
+
+// ===== android/gradle.properties =====
+org.gradle.jvmargs=-Xmx2g -Dfile.encoding=UTF-8
+android.useAndroidX=true
+android.nonTransitiveRClass=true
+
+// ===== android/app/proguard-rules.pro =====
+# Framework-only app: default optimize rules are enough. Strip debug logs in release:
+-assumenosideeffects class android.util.Log {
+    public static int d(...);
+    public static int v(...);
+}
+
+// ===== android/local.properties (NEVER commit) =====
+// sdk.dir=C\:\\Users\\<you>\\AppData\\Local\\Android\\Sdk
