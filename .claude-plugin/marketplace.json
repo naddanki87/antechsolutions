@@ -1,0 +1,19 @@
+{
+  "name": "antechsolutions",
+  "owner": {
+    "name": "Antech Solutions",
+    "url": "https://github.com/naddanki87"
+  },
+  "metadata": {
+    "description": "Reusable Claude skills from Antech Solutions.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "antech-engineering",
+      "source": "./plugins/antech-engineering",
+      "description": "8-agent engineering team skill (/ship): Spring Boot + vanilla web + offline-first Android, tests, OWASP audit, docs, JAR + APK, GitHub release.",
+      "version": "1.0.0"
+    }
+  ]
+}
